@@ -53,10 +53,65 @@ let expirationDatePattern = {
       mask: IMask.MaskedRange,
       from: String(new Date().getFullYear()).slice(2),
       // Pegando o ano atual com uma API (aplication programming interface) do próprio JS, e mudando seu tipo primitivo para String, e conseguindo assim, cortar os dois últimos caracteres da string utilizando o slice(2)
-      to: String(new Date().getFullYear() + 5).slice(2),
-      // Pegando o ano atual, somando com mais 5 anos (que é a quantidade de anos até o cartão vencer), passando para String, e cortando os dois últimos caracteres da string
+      to: String(new Date().getFullYear() + 9).slice(2),
+      // Pegando o ano atual, somando com mais 9 anos (que é a quantidade de anos até o cartão vencer), passando para String, e cortando os dois últimos caracteres da string
       // Ou seja, o ano é valido
     },
   },
 }
 let expirationDateMasked = IMask(expirationDate, expirationDatePattern)
+
+// validando o número do cartão, utilizando RegEx
+
+// visa
+// inicia com o número 4, seguido de mais 15 dígitos
+
+// mastercard
+// inicia com 5, seguido de um dígito entre 1 e 5, seguido de mais 2 dígitos
+// inicia com 22, seguido de um dígito entre 2 e 9, seguido de mau 1 dígito
+// inicia com 2, seguido de um dígito entre 3 e 7, seguido de mais 2 dígitos
+// seguido de mais 12 dígitos
+
+// elo
+// inicia com 6504, segido de mais 12 dígitos
+
+let cardNumber = document.querySelector("#card-number")
+let cardNumberPattern = {
+  mask: [
+    {
+      mask: "0000 0000 0000 0000",
+      cardtype: "visa",
+      regex: /^4\d{0,15}/,
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      cardtype: "mastercard",
+      regex: /(5[1-5]\d{0,2}|^22[2-9]\d|^2[3-7]\d{0,2})\d{0,12}/,
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      cardtype: "elo",
+      regex: /^6504\d{0,12}/,
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      cardtype: "default",
+    },
+  ],
+  dispatch: function (appended, dynamicMasked) {
+    // appended serve para que, toda vez que for digitado, cada letra será anexada (appended)
+
+    let number = (dynamicMasked.value + appended).replace(/\D/g, "")
+    // isso faz com que seja separado as letras dos números, todos os caracteres que não são dígitos, seram substituidas por "", enquanto, cada número será guardado na variável number
+
+    let foundMask = dynamicMasked.compiledMasks.find(function (item) {
+      return number.match(item.regex)
+    })
+
+    // console.log(foundMask);
+    return foundMask
+  },
+}
+
+let cardNumberMasked = IMask(cardNumber, cardNumberPattern)
+

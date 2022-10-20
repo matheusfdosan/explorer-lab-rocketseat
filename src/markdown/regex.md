@@ -30,7 +30,7 @@ const index = "aBC".search(/[A-Z]/)
 // Output: 1
 ```
 
-Pesquise se há ou não um padrão retorna um valor binário booleano. (1 para `true` e 0 para `false`)
+Pesquise se há ou não um padrão de A até Z e retorne um valor binário booleano. (1 para `true` e 0 para `false`)
 
 ```js
 const next = "aBC".replace(/a/, "A")
@@ -43,6 +43,7 @@ Procure nesse texto, o caractere `a` e substitua por `A` maiúsculo.
 
 ## Básico
 
+- `/ expression / flags` - initial
 - `\` Usar caracteres especiais dentro de RegEx
 - `()` Agrupador
 - `|` OU lógico
@@ -58,3 +59,18 @@ Procure nesse texto, o caractere `a` e substitua por `A` maiúsculo.
 
 ## Classes de caracteres
 
+- `\w` - palavras
+- `\d` - dígito (números)
+- `\s` - espaços em branco (tabs, queras de linha)
+- `\W` - NÃO palavras
+- `\D` - NÃO dígitos
+- `\S` - NÃO espaços em branco
+- `\t` - tabs
+- `\n` - quebra de linha
+- `.` - qualquer caractere (exeto nova linha)
+- `matheus|tiago` - matheus ou tiago
+- `?` - zero ou uma ocorrência
+- `*` - zero ou múltiplas ocorrências
+- `+` - uma ou múltiplas ocorrências
+- `{n}` - n ocorrências
+- `{minlength, maxlength}` - mínima/máxima ocorrências
