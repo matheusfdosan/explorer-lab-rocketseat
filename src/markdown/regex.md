@@ -34,7 +34,7 @@ Pesquise se há ou não um padrão de A até Z e retorne um valor binário boole
 
 ```js
 const next = "aBC".replace(/a/, "A")
-// Output: ABC
+// Output: ABC 
 ```
 
 Procure nesse texto, o caractere `a` e substitua por `A` maiúsculo.
